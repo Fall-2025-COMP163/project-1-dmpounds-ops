@@ -162,7 +162,7 @@ def display_character(character):
     print("Health:", character["health"])
     print("Gold:", character["gold"])
 
-def level_up(character)
+def level_up(character):
     """
     Increases character level and recalculates stats 
     Modifies the character dictionary directly 
@@ -184,3 +184,31 @@ if __name__ == "__main__":
     level_up(c2)
     print()
     display_character(c2)
+
+if __name__ == "__main__":
+    # 1) Create
+    c = create_character("Aria", "Mage")
+    assert c is not None, "create_character returned None"
+    assert c["class"] == "Mage"
+    assert c["level"] == 1
+    # sanity check against BASE+GROWTH: Mage STR=2+3*1=5, MAG=9+6*1=15, HP=70+10*1=80
+    s_expected, m_expected, h_expected = 5, 15, 80
+    assert c["strength"] == s_expected, f"strength {c['strength']} != {s_expected}"
+    assert c["magic"] == m_expected, f"magic {c['magic']} != {m_expected}"
+    assert c["health"] == h_expected, f"health {c['health']} != {h_expected}"
+    assert c["gold"] == 100
+
+    # 2) Save / Load format
+    save_ok = save_character(c, "aria.txt")
+    assert save_ok, "save_character returned False"
+    c2 = load_character("aria.txt")
+    assert c2 is not None, "load_character returned None"
+
+    # 3) Level up recalculation
+    level_up(c2)
+    assert c2["level"] == 2
+    s2, m2, h2 = calculate_stats(c2["class"], c2["level"])
+    assert (c2["strength"], c2["magic"], c2["health"]) == (s2, m2, h2)
+    assert c2["gold"] == 125
+
+    print("All local tests passed")
