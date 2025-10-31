@@ -3,20 +3,20 @@ COMP 163 - Project 1: Character Creator & Chronicles
 Simple solution using only material up through the Files chapter.
 
 # ---- Allowed classes (from README) ----
-VALID_CLASSES = ["Warrior", "Mage", "Rouge", "Cleric"]
+VALID_CLASSES = ["Warrior", "Mage", "Rogue", "Cleric"]
 
 # To keep stats consistent and easy to explain:
 # stat = base + growth * level
 BASE = {
     "Warrior": {"STR": 12, "MAG": 1, "HP": 90}, # high str, high hp, low magic
     "Mage":    {"STR": 2,  "MAG": 9, "HP": 70}, # low str, high magic, medium hp
-    "Rouge":   {"STR": 7,  "MAG": 6, "HP": 60}, # medium, medium, low hp
+    "Rogue":   {"STR": 7,  "MAG": 6, "HP": 60}, # medium, medium, low hp
     "Cleric":  {"STR": 6,  "MAG": 10, "HP": 85}, # medium str, high magic, high hp
 }
 GROWTH = {
     "Warrior": {"STR": 6, "MAG": 1, "HP": 15},
     "Mage":    {"STR": 3, "MAG": 6, "HP": 10},
-    "Rouge":   {"STR": 4, "MAG": 3, "HP": 8}, 
+    "Rogue":   {"STR": 4, "MAG": 3, "HP": 8}, 
     "Cleric":  {"STR": 3, "MAG": 5, "HP": 12},
 }
 def _gold_for(level):
@@ -29,14 +29,14 @@ def create_character(name, character_class):
     Return: dictionary with keys: name, class, level, strength, magic, health, gold
     """
     if character_class not in VALID_CLASSES:
-        return NONE
+        return None
 
     level = 1
     stats = calculate_stats(character_class, level) # tuple
     if stats is None:
         return None
 
-    Strength, magic, health = stats
+    strength, magic, health = stats
     character = {
         "name": str(name).strip(),
         "class": character_class,
@@ -89,7 +89,7 @@ def save_character(character, filename):
             f.write("Strength: " + str(character["strength"]) + "\n")
             f.write("Magic: " + str(character["magic"]) + "\n")
             f.write("Health: " + str(character["health"]) + "\n")
-            f.write("Gold: " + str(character["gold") + "\n")
+            f.write("Gold: " + str(character["gold"]) + "\n")
         return True 
     except PermissionError:
         return False
@@ -100,7 +100,7 @@ def load_character(filename):
     Returns: character dictionary if succesful, None if file not found 
     """
     try: 
-        with open(filename, "r", ending="utf-8") as f:
+        with open(filename, "r", encoding="utf-8") as f:
             lines = f.readlines()
     except FileNotFoundError:
         return None
@@ -153,14 +153,14 @@ def display_character(character):
     Prints formatted character sheet 
     Returns: None (prints to console)
     """ 
-    Print("=== CHARACTER SHEET ===")
-    Print("Name:", character["name"])
-    Print("Class:", character["class"])
-    Print("Level:", character["level"])
-    Print("Strength:", character["strength"])
-    Print("Magic:", character["magic"])
-    Print("Health:", character["health"])
-    Print("Gold:", character["gold"])
+    print("=== CHARACTER SHEET ===")
+    print("Name:", character["name"])
+    print("Class:", character["class"])
+    print("Level:", character["level"])
+    print("Strength:", character["strength"])
+    print("Magic:", character["magic"])
+    print("Health:", character["health"])
+    print("Gold:", character["gold"])
 
 def level_up(character)
     """
@@ -184,6 +184,3 @@ if __name__ == "__main__":
     level_up(c2)
     print()
     display_character(c2)
-
-        
-        
