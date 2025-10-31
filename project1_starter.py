@@ -64,9 +64,9 @@ def calculate_stats(character_class, level):
 
     b = BASE[character_class]
     g = GROWTH[character_class]
-    strength = b["STR"] + g["STR"] * lvl
-    magic    = b["MAG"] + g["MAG"] * lvl
-    health   = b["HP"]  + g["HP"]  * lvl
+    strength = b["STR"] + g["STR"] * (lvl - 1)
+    magic = b["MAG"] + g["MAG"] * (lvl - 1)
+    health = b["HP"] + g["HP"] * (lvl - 1)
     return (int(strength), int(magic), int(health))
 
 def save_character(character, filename):
