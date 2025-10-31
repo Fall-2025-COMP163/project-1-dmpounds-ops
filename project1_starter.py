@@ -1,6 +1,6 @@
 """
 COMP 163 - Project 1: Character Creator & Chronicles
-Simple solution using only material up through the File chapter.
+Simple solution using only material up through the Files chapter.
 
 # ---- Allowed classes (from README) ----
 VALID_CLASSES = ["Warrior", "Mage", "Rouge", "Cleric"]
@@ -11,7 +11,7 @@ BASE = {
     "Warrior": {"STR": 12, "MAG": 1, "HP": 90}, # high str, high hp, low magic
     "Mage":    {"STR": 2,  "MAG": 9, "HP": 70}, # low str, high magic, medium hp
     "Rouge":   {"STR": 7,  "MAG": 6, "HP": 60}, # medium, medium, low hp
-    "Cleric":  {"STR": 6, "MAG": 10, "HP": 85}, # medium str, high magic, high hp
+    "Cleric":  {"STR": 6,  "MAG": 10, "HP": 85}, # medium str, high magic, high hp
 }
 GROWTH = {
     "Warrior": {"STR": 6, "MAG": 1, "HP": 15},
@@ -25,7 +25,7 @@ def _gold_for(level):
 
 def create_character(name, character_class):
     """
-    Create a new character dictionary with calculated stats. 
+    Creates a new character dictionary with calculated stats. 
     Return: dictionary with keys: name, class, level, strength, magic, health, gold
     """
     if character_class not in VALID_CLASSES:
@@ -62,7 +62,7 @@ def calculate_stats(character_class, level):
         return None
 
     b = BASE[character_class]
-    g - GROWTH[character_class]
+    g = GROWTH[character_class]
     strength = b["STR"] + g["STR"] * lvl
     magic    = b["MAG"] + g["MAG"] * lvl
     health   = b["HP"]  + g["HP"]  * lvl
@@ -71,9 +71,9 @@ def calculate_stats(character_class, level):
 def save_character(character, filename):
     """
     Saves character to text file in specific format
-    Returns: True if succesfull, False if error occured (PermissionError)
+    Returns: True if succesful, False if error occured (PermissionError)
     Required file format:
-    Character Nmae: [name]
+    Character Name: [name]
     Class: [class]
     Level: [level]
     Strength: [strength]
@@ -124,9 +124,9 @@ def load_character(filename):
                 data["level"] = 1
         elif label == "Strength":
             try:
-                data["Strength"] = int(value)
+                data["strength"] = int(value)
             except ValueError:
-                data["Strength"] = 0
+                data["strength"] = 0
         elif label == "Magic":
             try:
                 data["magic"] = int(value)
@@ -137,7 +137,7 @@ def load_character(filename):
                 data["health"] = int(value)
             except ValueError:
                 data["health"] = 0
-        elif label == "Gold:
+        elif label == "Gold":
             try:
                 data["gold"] = int(value)
             except ValueError:
@@ -176,7 +176,7 @@ def level_up(character)
     character["gold"] = _gold_for(character["level"])
 
 # Optional small demo
-of __name__ == "__main__":
+if __name__ == "__main__":
     c = create_character("Aria", "Mage")
     display_character(c)
     save_character(c, "aria.txt")
